@@ -1,3 +1,12 @@
+// build script: 의존성 라이브러리를 추가하는 기본 closure task
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+// https://medium.com/@StefMa/its-time-to-ditch-the-buildscript-block-a1ab12e0d9ce
+// buildscript랑 같은 목적 // 의존선 라이브러리를 추가함
 plugins {
     id 'org.springframework.boot' version '2.1.6.RELEASE'
     id 'java'
@@ -17,11 +26,31 @@ configurations {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    repositories {
+        mavenCentral()
+    }
+
+    init {
+        
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
 }
