@@ -1,10 +1,15 @@
 package com.study.jong.persistence.ch002.entity;
 
+import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Setter
+@DynamicUpdate
 @Entity
 // Table annotation이 없으면 기본적으로 entity이름을 상요
 @Table(name = "Member")

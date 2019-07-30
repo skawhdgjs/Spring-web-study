@@ -6,3 +6,13 @@ spring:
     username: root
     password: password
     url: jdbc:mysql://localhost:3306/jpa
+    name: jpa
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update # update mode
+
+# Search hikari, tomcat, dbcp datasource
+# hibernate properties
+# After -> persistence.yml
+# persistence-unit?

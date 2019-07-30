@@ -27,3 +27,10 @@
 
 객체와 <> 관계형 데이터베이스는 지향하는 목적이 서로 달라 기능과 표현방법도 다름
 JPA가 이를 해결해 줄 것 이다.
+
+# 과정
+
+엔터티 매니저 팩토리 ( boot 는 ) 
+- Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+-> 앤터티 매니저 생성
