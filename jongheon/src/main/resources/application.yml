@@ -10,7 +10,11 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: update # update mode
+      ddl-auto: update # update mode ( create, create-drop, validate )
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy # camel -> underscore , mapping name default
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy # logical naming same as upper
+      use-new-id-generator-mappings: false # true -> @GeneratedValue(GenerationType.TABLE)
 
 # Search hikari, tomcat, dbcp datasource
 # hibernate properties

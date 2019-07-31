@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Entity
 // Table annotation이 없으면 기본적으로 entity이름을 상요
-@Table(name = "Member")
+@Table(name = "MEMBER")
 public class MemberEntity {
 
     @Id
