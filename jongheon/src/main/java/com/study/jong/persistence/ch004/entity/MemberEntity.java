@@ -44,7 +44,7 @@ public class MemberEntity {
      * {@link BoardEntity}
      */
     @Id
-    @GeneratedValue(GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Id
