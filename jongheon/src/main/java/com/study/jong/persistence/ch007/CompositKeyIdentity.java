@@ -1,6 +1,8 @@
 package com.study.jong.persistence.ch007;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +10,8 @@ import java.io.Serializable;
 public class CompositKeyIdentity {
 }
 
+@Setter
+@Getter
 @Entity
 class ParentIden {
     @Id @Column(name = "PARENT_ID")
@@ -15,6 +19,8 @@ class ParentIden {
     private String name;
 }
 
+@Setter
+@Getter
 @Entity
 @IdClass(ChildIdIden.class)
 class childIden {
@@ -25,18 +31,22 @@ class childIden {
     public Parent parent;
 
     @Id
-    @Column("CHILD_ID")
+    @Column(name = "CHILD_ID")
     private String childId;
 
     private String name;
 }
 
+@Setter
+@Getter
 @EqualsAndHashCode
 class ChildIdIden implements Serializable {
     private String parent;
     private String childId;
 }
 
+@Setter
+@Getter
 @Entity
 @IdClass(grandChildIdiden.class)
 class grandChildiden {
@@ -52,6 +62,8 @@ class grandChildiden {
     private String id;
 }
 
+@Setter
+@Getter
 @EqualsAndHashCode
 class grandChildIdiden implements Serializable {
 
@@ -64,6 +76,8 @@ class grandChildIdiden implements Serializable {
  *  EmbeddedId // @MapsId를 사용해야 한다.
  */
 
+@Setter
+@Getter
 @Entity
 class ParentEmbed2 {
 
@@ -75,6 +89,8 @@ class ParentEmbed2 {
 
 }
 
+@Setter
+@Getter
 @Entity
 class ChildEmbed {
 
@@ -89,8 +105,9 @@ class ChildEmbed {
     private String name;
 
 }
-}
 
+@Setter
+@Getter
 @Embeddable
 @EqualsAndHashCode
 class ChildIdEmbed implements Serializable {
@@ -101,6 +118,8 @@ class ChildIdEmbed implements Serializable {
     private String id;
 }
 
+@Setter
+@Getter
 @Entity
 class GrandChildEmbed {
 
