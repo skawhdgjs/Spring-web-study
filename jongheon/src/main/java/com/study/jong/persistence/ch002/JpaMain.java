@@ -58,7 +58,7 @@ public class JpaMain {
         MemberEntity findMember = em.find(MemberEntity.class, id);
 
         // 이 sql은 jpql -> 엔터티 객체를 중심으로 개발하기 때문에 검색도 테이블이 아닌 엔터티 객체를 대상으로 검색
-        // JPQL = 객체지향 쿼리 언어 SQL과 차이점은 앤터티 객체를 대상으로 쿼리(= 클래스와 필드를 대상으로 쿼리)
+        // Jpql = 객체지향 쿼리 언어 SQL과 차이점은 앤터티 객체를 대상으로 쿼리(= 클래스와 필드를 대상으로 쿼리)
         List<MemberEntity> memberEntities = em.createQuery("select m from MemberEntity m", MemberEntity.class)
                                                 .getResultList();
 
