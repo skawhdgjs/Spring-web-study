@@ -2,3 +2,4 @@ rootProject.name = 'sws'
 
 include 'jongheon'
 include 'suhyeon'
+include 'aggregation'
