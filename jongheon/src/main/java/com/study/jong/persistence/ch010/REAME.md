@@ -73,3 +73,91 @@ session.doWork(new Work(){
 위에서 언급한 문제도 깔끔하게 해결할 수 있다.)
 
 ### JPQL
+
+
+JPQL 특징 
+
+* JPQL은 객체지향 쿼리 언어이다. 따라서 테이블을 대상으로 쿼리하는것이 아니라 엔티티 객체를 대상으로 쿼리한다.
+* JPQL은 SQL을 추상화해서 특정 데이터베이스 SQL에 의존하지 않는다.
+* JPQL은 결국 SQL로 변환된다.
+
+1. Select 문
+
+- 엔티티와 속성은 대소문자를 구분한다. 
+- 클래스명이 아니라 엔티티명을 사용한다.
+- 별칭은 필수로 사용해야한다 (As 문법)
+
+쿼리 객체
+
+TypeQuery, Query - 작성한 JPQL을 실행하려면 쿼리 객체를 만들어야 한다.
+
+* 반환할 객체를 정확히 지정할 수 있ㅇ면 *TypeQuery* 아니라면 *Query*를 사용하면 된다. 
+
+em.createQuery()의 두 번쨰 파라미터에 반환할 타입을 지정하면 TypeQuey를 반환하고 지정하지 않으면 Query를 반환한다.
+조회 대상이 Member 엔티티이므로 조회 대상 타입이 명확하다.
+
+### 결과 조회
+
+query.getResultList(): 결과를 예제로 반환한다.
+
+query.getSingleResult(): 결과가 정확히 하나일 때 사용한다.
+ - 결과가 없으면 NoResultExcpetion, 1개보다 많으면 NoUniqueResultException 예외가 발생한다.
+ 
+파라미터 바인딩
+
+JDBC는 위치 기준 파라미터 바인딩만 지원하지만 JPQL은 이름 기준 파라미터 바인딩도 지원한다.
+(이름 기준 파라미터는 앞에 :를 사용한다.)
+
+위치 기준 파라미터 ( ?1 ) 같이 사용
+
+* 이름 기준 파라미터 바인딩 방식을 사용하는것이 더 명확하다.
+
+
+### 프로젝션
+
+Select 절에 조회할 대상을 지정하는 것을 프로젝션이라 하고 (Select { 프로젝션 } from ) 프로젝션 대상은 *엔티티*, *임베디드 타입*, *스칼라 타입*
+
+
+##### 엔티티 프로젝트
+```sql
+SELECT m from Member m;
+SELECT m.team from Member m;
+
+```
+객체를 바로 조회한것 ( 칼럼을 하나하나 나열하는게 아님 ) 
+영속성 컨텍스트에서 관리됨
+
+#### 임베디드 타입 프로젝션
+ 
+JPQL에서 임베디드 타입은 엔티티와 거의 비슷하게 사용된다. 임베디드 타입은 조회의 시작점이 될 수 없다는 제약이 있다.
+
+Address 가 order에 포함된 임베디드 타입이라면 oder엔티티를 시작점으로 해야한다.
+```java
+String query = "SELECT o.address FROM Order o"
+List<Address> addresses = em.createQuery(query, Adddress.class).getResultList();
+```
+
+*임베디드 타입은 엔티티 타입이 아닌 값 타입이다. 따라서 이렇게 직접 조회한 임베디드 타입은 영속성 컨텍스트에서 관리되지 않는다.*
+
+#### 스칼라 타입 프로젝션
+
+숫자, 문자, 날짜와 같은 기본 데이터 타입들을 스칼라 타입이라고 함.
+```java
+List<String> username = em.createQuery("SELECT username from Member m", String.class)
+.getResultList();
+```
+
+- 통계도 주로 스칼라 타입으로 한다.
+
+여러 값 조회 
+
+엔티티를 대상으로 조회하지 않을떄, 꼭 필요한 데이터들만 선택해서 조회
+
+프로젝션에 여러값을 선택하면 TypeQuery를 사용할 수 없고 대신에 Query를 사용해야 한다.
+
+```java
+Query query = em.createQuery("SELECT m.username m.age FROM Member m")
+List resultList =query.getReulstList();
+
+이터레이터 ->
+```
