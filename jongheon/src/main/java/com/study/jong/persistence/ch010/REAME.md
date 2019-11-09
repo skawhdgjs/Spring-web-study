@@ -161,3 +161,55 @@ List resultList =query.getReulstList();
 
 이터레이터 ->
 ```
+
+### new 며령어
+
+객체 변환 작업시 NEW 명령어 사용
+
+```java
+TypeQuery<UserDTO> qeury = em.createQuery("SELECT new jpabook.jpql.userDTO(m.username, m.age from Member m", UserDTO.class )
+
+List<UserDTO> resultList = query.getResultList();
+```
+
+
+### 페이징 API
+
+페이징 처리용 SQL을 작성하는건 반복적이고 데이터베이스 마다 처리하는 SQL문법이 다르다는 점이다. 
+
+JPA는 페이징을 다음 두 API로 추상화 했다.
+* setFirstResult(int startPosition) : 조회 시작 위치 (0부터 시작한다)
+* setMaxResults(int maxResult): 조회할 데이터 수 
+
+ex
+```java
+TypeQuery<Member> query = em.createQuery("SELECT m FROM Member m ORDER BY m.username DESC", Member.class )
+
+query.setFirstReulst(10)
+query.setMaxResults(20)
+query.getResultList()
+```
+ㄴ FirstResult의 시작은 10이므로 11번쨰부터 시작해서 총 20건의 데이터를 조회한다. 따라서 11~30번 데이터를 조회한다.
+
+데이터베이스마다 어떻게 반환되는지 확안한다.
+
+MySQL
+```sql
+SELECT 
+    M.ID 
+FROM MEMBER M 
+ORDER BY M.ID DESC LIMIT ?, ?
+
+``` 
+
+페이징을 최적하기 위해서는 네이티브SQL을 사용하는게 더 낫다.
+
+### 집합과 정렬
+
+집합은 집합함수와 함께 통게 정보를 구할 떄 사용한다.
+
+Count, Max, Min, Avg, Sum 
+
+-> NUll값은 무시한다. (Distinct가 정의되어 있어도 무시된다), DISTINCT를 집합 함수 안에 사용해서 중복된 값을 제거하고 나서 집합을 
+구할 수 있다, Distinct를 count에서 사용할때 임베디드 타입은 지원하지 않는다.
+
