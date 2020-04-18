@@ -1,0 +1,73 @@
+1. Spring의 기본 기능
+  
+  v. java-EE 가 했었는데, spring이 이를 단순하게 정리 했다.
+  
+  dependency injection,( v )
+  transaction management, ( v )
+  web apps,
+  data access,
+  messaging
+
+그래서 
+
+< 웹 개발 >
+> Spring ( <- Java EE 를 대체 )
+> Java SE ( API, 파일, 콘소르 윈둥 )
+
+1. MVC  <- DI <- 느슨한 결합력과 인터페이스
+2. 트랜잭션 <- AOP 
+3. 인증과 권한 <- Servlet Filter
+
+
+---------------
+약결합 
+UI - Service - Data access object - DB
+
+1. 새로운 Dao로 바꾸기 위해서는 Service도 같이 배포를 해야한다.
+ex) 인터페이스 사용후, 설정파일로 생성 
+
+
+----------------
+DI, IoC Container
+
+
+A가 B를 사용하는것은 
+ = Composition, 일체형 관계, 부품, dependency, b = new B(),   큰단위에서 작은 다위가 생성됨
+ = Association, 조립형, setB() -> 작은 단위 부터 큰단위로 감
+ 
+ 
+ B b = new B(); <- dependcy
+ A a = new A();
+ 
+ a.setB(b) <- injection
+ 
+ 1. 장점: 부품을 쉽게 만들 수 있다.
+ 2. 단점: 갈아 끼워야 한다. 조립하기 귀찮
+      갈아끼우는 방법은 , constrcutor를 통해 or Setter를 통해 가능하다
+      조립을 해주는 녀석을 이용한다. - spring이 조립을 해준다.
+      
+----------------
+ioc 컨테이너
+      
+   주문서에 입력대로 만들어서 조립하는것 Container, 부품 컨테이너
+   작은 부품을 만들고 큰 부품을 만드고 조립 = 역순 ( inversion of control ) 
+   
+   
+----------------
+
+* spring @Bean
+
+그럼 지시서를 어떻게 만드는게 좋은것인가? 
+------------
+
+ApplicationContext = config 혹은 조립서를 읽어서 객체화 해서 담고 있는 그릇 ( IoC container) 
+Classpath: application의 Root부터 찾음 
+      
+----------
+<Setter를 통해 설정>
+Configuration property , xml에서 setter통해 입력을 받았던것을 java annotation으로 변환 했다.
+<Construct를 통해 설정> 
+      
+
+      
+  
