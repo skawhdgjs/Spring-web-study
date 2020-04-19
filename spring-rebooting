@@ -68,6 +68,47 @@ Classpath: application의 Root부터 찾음
 Configuration property , xml에서 setter통해 입력을 받았던것을 java annotation으로 변환 했다.
 <Construct를 통해 설정> 
       
+----------
+@Autowired
+ (Annotation 과 코드를 같이 하기로함)
+코드에 아예 메타이터들을 하기로
+객채 생성할때 @Autowire들을 확인해서 객체를 참조해줘라 라는게 필요함, 
+<annotation-config> -> 객체에 annotation이 있다는걸 알려줌
 
-      
-  
+-----------
+@Qualifier
+
+@Autowire을 할때 어떤걸 기준으로 참조하게 만드나
+1. 자료형? ( v ) 객체를 참조할 수 있는것을 사용하게 된다. 2개면 :
+2. 그다음은 이름을 찾느다.
+
+@Qualifier - 설정과 객체가 이름이 다를떄 => 이름을 가지고 찾아라 
+
+-----------
+@Autowired 위치
+
+1. setter위치
+  - setter method를 호출하면서 세팅
+2. constructor위치
+  - qulifier 는 생성자에서 할시에 여러개가 올수 있으니, param에 지정하다.
+3. Field 위치 ( 이게 새로운 것 )
+    - 기본생성자를 호출하면서 세팅된다
+    
+    
+-----------
+어노테이션을 이용한 객체 생성
+
+@Component
+종류와 시멘틱
+
+@Value 기본 값 설정을 위한 어노테이션
+
+@Component -> Controller, service, repository 
+
+------------
+@Configuration 자바 configuration
+
+@Configuration
+@ConponentScan("..")
+
+refresth() - 설정된 내용을 다시 읽어줌
