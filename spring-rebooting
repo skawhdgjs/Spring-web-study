@@ -112,3 +112,46 @@ Configuration property , xml에서 setter통해 입력을 받았던것을 java a
 @ConponentScan("..")
 
 refresth() - 설정된 내용을 다시 읽어줌
+
+
+--------------
+AOP 방법론
+
+Aspect oriented Programming 
+
+개발자, 운영자, 사용자의 관점에 따라서 나누어서 한다
+지금까지 객체지향은 사용자 관점에 따라서 개발했다.
+
+
+Primary(core) Concern과 Cross-Cutting concern
+
+주 업무 외
+
+로그 처리
+보안처리
+트랜잭션 처리
+
+흐름 -> Cross-Cutting Conern -> 이에가 Core Conern을 호출
+
+```java
+public class Exam implements Exam {
+   
+   // 추가
+
+   int result = math + eng;
+   
+   // 추가 
+   
+   return result;
+}
+
+Exam proxy = Proxy.newProxyInstance(
+  NewExam.class.getClassLoder()
+  new Class[] {Exam.class}, new Instance(){
+      xxxx
+  }
+)
+
+```
+코드의 수정없이 proxy를 spring의 Di로 해결
+
